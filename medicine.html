@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmasell - Medicines</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1a73e8;
+        }
+
+        .page-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-title p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Medicine Grid */
+        .medicine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .medicine-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .medicine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .medicine-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .medicine-info {
+            padding: 1.5rem;
+        }
+
+        .medicine-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .medicine-category {
+            display: inline-block;
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .medicine-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .medicine-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a73e8;
+            margin-bottom: 1rem;
+        }
+
+        .buy-button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #1557b0;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #1a73e8;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .page-title h2 {
+                font-size: 2rem;
+            }
+
+            .medicine-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pharmasell</h1>
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="medicine.html" class="active">Medicine</a>
+        <a href="aboutus.html">About us</a>
+    </nav>
+</header>
+
+<main>
+    <div class="page-title">
+        <h2>Our Medicines</h2>
+        <p>Browse our complete range of pharmaceutical products</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search medicines...">
+    </div>
+
+    <div class="medicine-grid">
+        <!-- Medicine 1 -->
+        <div class="medicine-card">
+            <div class="medicine-image">💊</div>
+            <div class="medicine-info">
+                <h3 class="medicine-name">Paracetamol</h3>
+                <span class="medicine-category">Pain Relief</span>
+                <p class="medicine-description">Effective pain reliever and fever reducer. Suitable for headaches and mild pain.</p>
+                <p class="medicine-price">$5.99</p>
+                <button class="buy-button">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Medicine 2 -->
+        <div class="medicine-card">
+            <div class="medicine-image">💉</div>
+            <div class="medicine-info">
+                <h3 class="medicine-name">Amoxicillin</h3>
+                <span class="medicine-category">Antibiotics</span>
+                <p class="medicine-description">Broad-spectrum antibiotic for bacterial infections. Prescription required.</p>
+                <p class="medicine-price">$12.50</p>
+                <button class="buy-button">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Medicine 3 -->
+        <div class="medicine-card">
+            <div class="medicine-image">🧪</div>
+            <div class="medicine-info">
+                <h3 class="medicine-name">Omeprazole</h3>
+                <span class="medicine-category">Digestive Health</span>
+                <p class="medicine-description">Treats heartburn and acid reflux. Provides long-lasting relief.</p>
+                <p class="medicine-price">$8.99</p>
+                <button class="buy-button">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Medicine 4 -->
+        <div class="medicine-card">
+            <div class="medicine-image">🌿</div>
+            <div class="medicine-info">
+                <h3 class="medicine-name">Loratadine</h3>
+                <span class="medicine-category">Allergy Relief</span>
+                <p class="medicine-description">Non-drowsy antihistamine for seasonal allergies and hay fever.</p>
+                <p class="medicine-price">$7.25</p>
+                <button class="buy-button">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Medicine 5 -->
+        <div class="medicine-card">
+            <div class="medicine-image">💪</div>
+            <div class="medicine-info">
+                <h3 class="medicine-name">Vitamin D3</h3>
+                <span class="medicine-category">Supplements</span>
+                <p class="medicine-description">Essential vitamin for bone health and immune system support.</p>
+                <p class="medicine-price">$9.99</p>
+                <button class="buy-button">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Medicine 6 -->
+        <div class="medicine-card">
+            <div class="medicine-image">🩹</div>
+            <div class="medicine-info">
+                <h3 class="medicine-name">Ibuprofen</h3>
+                <span class="medicine-category">Anti-inflammatory</span>
+                <p class="medicine-description">NSAID for reducing inflammation, pain, and fever. Fast-acting formula.</p>
+                <p class="medicine-price">$6.50</p>
+                <button class="buy-button">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Pharmasell. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
