@@ -3,35 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
-    <link rel="stylesheet" href="aboutus.css">
+    <title>Pharmasell - About Us</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* About Section */
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h2 {
+            font-size: 2.5rem;
+            color: #1a73e8;
+            margin-bottom: 1rem;
+        }
+
+        .about-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            color: #1a73e8;
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Team Section */
+        .team-section {
+            margin-bottom: 3rem;
+        }
+
+        .team-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .team-title h3 {
+            font-size: 2rem;
+            color: #1a73e8;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-title p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .team-avatar.dev-lead {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .team-avatar.ui-designer {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .team-avatar.db-admin {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .team-info {
+            padding: 2rem;
+        }
+
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            display: inline-block;
+            background-color: #e8f0fe;
+            color: #1a73e8;
+            padding: 0.4rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-role.lead {
+            background-color: #fce4ec;
+            color: #c62828;
+        }
+
+        .team-role.designer {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .team-role.database {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .team-bio {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-link {
+            background-color: #f0f4f8;
+            color: #1a73e8;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a73e8;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav {
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .about-header h2 {
+                font-size: 2rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <header>
-    <h1>About Us</h1>
+    <h1>Pharmasell</h1>
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="medicine.html">Medicine</a>
+        <a href="aboutus.html" class="active">About us</a>
+    </nav>
 </header>
 
-<section class="about">
-    <h2>Who We Are</h2>
-    <p>
-        Welcome to our website! We are a group dedicated to creating simple
-        and helpful web projects. Our goal is to learn and share knowledge
-        about web development using HTML, CSS, and other technologies.
-    </p>
-</section>
+<main>
+    <!-- About Header -->
+    <div class="about-header">
+        <h2>About Pharmasell</h2>
+        <p>We are a dedicated team of developers and designers committed to revolutionizing the pharmaceutical industry through innovative digital solutions. Our platform connects healthcare providers with quality medicines efficiently and securely.</p>
+    </div>
 
-<section class="mission">
-    <h2>Our Mission</h2>
-    <p>
-        Our mission is to build useful and easy-to-understand websites while
-        improving our skills as developers. We believe that learning by
-        building projects is the best way to grow in the field of technology.
-    </p>
-</section>
+    <!-- Mission & Vision -->
+    <div class="mission-vision">
+        <div class="info-card">
+            <div class="icon">🎯</div>
+            <h3>Our Mission</h3>
+            <p>To provide accessible, affordable, and quality pharmaceutical products through cutting-edge technology, ensuring better healthcare outcomes for everyone.</p>
+        </div>
+        <div class="info-card">
+            <div class="icon">🚀</div>
+            <h3>Our Vision</h3>
+            <p>To become the leading digital pharmaceutical platform globally, bridging the gap between healthcare providers and patients through innovation and trust.</p>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="stat-card">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Medicines Available</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">10k+</div>
+            <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Customer Support</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Authentic Products</div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section">
+        <div class="team-title">
+            <h3>Meet Our Team</h3>
+            <p>The brilliant minds behind Pharmasell's success</p>
+        </div>
+
+        <div class="team-grid">
+            <!-- Prince Lloyd Galanza - Lead Developer -->
+            <div class="team-card">
+                <div class="team-avatar dev-lead">
+                    👨‍💻
+                </div>
+                <div class="team-info">
+                    <h4 class="team-name">Prince Lloyd Galanza</h4>
+                    <span class="team-role lead">Lead Developer</span>
+                    <p class="team-bio">Lead developer with expertise in full-stack web development. Prince Lloyd architects robust and scalable solutions that power the Pharmasell platform, ensuring seamless performance and reliability.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- John Lawrence Hulguin - UI Designer -->
+            <div class="team-card">
+                <div class="team-avatar ui-designer">
+                    🎨
+                </div>
+                <div class="team-info">
+                    <h4 class="team-name">John Lawrence Hulguin</h4>
+                    <span class="team-role designer">UI Designer</span>
+                    <p class="team-bio">Creative UI designer passionate about crafting intuitive and visually stunning user interfaces. John Lawrence ensures that every pixel of Pharmasell delivers an exceptional user experience.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Portfolio</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allen Calumba - Database Administrator -->
+            <div class="team-card">
+                <div class="team-avatar db-admin">
+                    🗄️
+                </div>
+                <div class="team-info">
+                    <h4 class="team-name">Allen Calumba</h4>
+                    <span class="team-role database">Database Administrator</span>
+                    <p class="team-bio">Expert database administrator specializing in data management and security. Allen maintains the integrity and performance of Pharmasell's databases, ensuring data is always secure and accessible.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
 <footer>
-    <p>© 2026 Our Website. All Rights Reserved.</p>
+    <p>© 2026 Pharmasell. All rights reserved. | Developed by Prince Lloyd Galanza</p>
 </footer>
 
 </body>
